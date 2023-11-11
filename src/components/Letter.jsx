@@ -2,25 +2,21 @@ import React from 'react'
 import styled from "styled-components"
 
 function Letter(prop) {
-
-    
-
     return (
         <div>
-            test
             <StDiv>
                 <StUl>
                     <StLi>
                         <StSection>
                             <StFigure>
-                                <StImg></StImg>
+                                <StImg src={prop.avatar}></StImg>
                             </StFigure>
                             <StDiv>
-                                <StSpan>{prop.name}</StSpan>
+                                <StSpan>{`닉네임 : ${prop.nickname}`}</StSpan>
                                 <StTime></StTime>
                             </StDiv>
                         </StSection>
-                        <StP>{prop.content}</StP>
+                        <StP>{`내용 : ${prop.content}`}</StP>
                     </StLi>
                 </StUl>
             </StDiv>
@@ -29,7 +25,7 @@ function Letter(prop) {
 }
 
 const StDiv = styled.div`
-    
+
 `
 const StUl = styled.ul`
   

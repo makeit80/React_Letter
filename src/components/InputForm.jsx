@@ -1,24 +1,30 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from "styled-components"
 import Letter from './Letter'
+import fakeData from './fakeData.json'
 
-function Form() {
+function Form({ shownMember }) {
 
     const [nameInput, setNameInput] = useState('')
     const [contentInput, setContentInput] = useState('')
 
-    const [inputList, setInputList] = useState([])
+    const [inputList, setInputList] = useState(fakeData)
 
     function onClickHandler() {
         const List = { //prop drilling check
-            id: inputList.length + 1, // TODO: uuid() 로 변경
-            name: nameInput,
+            // createdAt : ,// TODO : 현재 날짜 데이터 가져오기
+            nickname: nameInput,
+            // avatar : ,// TODO : 랜덤 이미지 생성 기능 구현
+            // writedTo : ,
             content: contentInput,
-            isDone: false
+            id: inputList.length + 1 // TODO: uuid() 로 변경
         }
         setInputList([...inputList, List])
     }
 
+    useEffect(() => {
+        console.log('바뀌었다!')
+    }, [shownMember])
 
     return (
         <>
@@ -43,24 +49,26 @@ function Form() {
                 </StDiv>
             </StForm>
             {
+
                 inputList
+                    .filter(function (value) {
+                        return value.writedTo === shownMember
+                    })
                     .map((item, index) => {
                         return (
                             <Letter
                                 id={item.id}
-                                name={item.name}
+                                nickname={item.nickname}
                                 content={item.content}
-                                isDone={item.isDone}
+                                avatar={item.avatar}
                             >
                             </Letter>
                         )
-
                     })
+
             }
         </>
-
     )
-
 }
 
 const StForm = styled.form`
