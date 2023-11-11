@@ -10,7 +10,7 @@ function Form() {
     const [inputList, setInputList] = useState([])
 
     function onClickHandler() {
-        const List = {
+        const List = { //prop drilling check
             id: inputList.length + 1, // TODO: uuid() 로 변경
             name: nameInput,
             content: contentInput,
