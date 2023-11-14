@@ -1,10 +1,13 @@
 import React from 'react'
 import Header from '../components/Header'
 
-function Home() {
+function Home({inputList, setInputList}) {
   return (
     <div>
-      <Header></Header>
+      <Header                 
+      inputList={inputList} 
+      setInputList={setInputList}>
+      </Header>
     </div>
   )
 }

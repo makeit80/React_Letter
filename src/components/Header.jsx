@@ -1,33 +1,36 @@
-import React, { useEffect } from 'react'
+import React, { useState } from 'react'
 import styled from "styled-components"
 import InputForm from '../components/InputForm'
 
 
 
-function Header() {
-    let shownMember = 'Geako'
-    function memberShownHandler (member) {
-        member === 'Choiza' ? shownMember = 'Choiza' : shownMember = 'Geako'
-        console.log(shownMember)
-    }
+function Header({inputList, setInputList}) {
 
+    // Q&A : useEffect를 활용해 변수의 값이 바뀔 때마다 state를 변경할 수는 없을까?
+    // let shownMember = 'Geako'
+
+    const [member, setMember] = useState('Geako')
 
     return (
         <>
             <StHeader>
                 <StTitle>다이나믹 듀오 팬레터</StTitle>
                 <StUl>
-                    <StLi onClick={() => {memberShownHandler('Geako')}}>개코</StLi>
-                    <StLi onClick={() => {memberShownHandler('Choiza')}}>최자</StLi>
+                    <StLi onClick={() => {setMember('Geako')}}>개코</StLi>
+                    <StLi onClick={() => {setMember('Choiza')}}>최자</StLi>
                 </StUl>
             </StHeader>
-            <InputForm shownMember={shownMember}></InputForm>
+            <InputForm shownMember={member}
+            inputList={inputList} 
+            setInputList={setInputList}
+            ></InputForm>
         </>
 
     )
 }
 
-// TODO : width, height min값 정해주기
+// TODO : width, height min, max값 정해주기
+// TODO : 중앙 정렬 전역스타일링으로 빼기
 const StHeader = styled.header`
     background-color: gray;
     height: 30vh;
@@ -69,9 +72,9 @@ const StLi = styled.li`
     cursor: pointer;
 
     &:hover {
-        background-color: #565656;
-        color: white;
-        transition: 0.5s;
+    background-color: #565656;
+    color: white;
+    transition: 0.5s;
     }
     `
 
