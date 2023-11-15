@@ -1,24 +1,37 @@
 import React from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import styled from "styled-components"
+import GlobalStyle from '../GlobalStyle';
 
-function Letter({id, avatar, nickname, content}) {
+function Letter({id, avatar, nickname, content, createdAt}) {
     const navigate = useNavigate();
+
+    function contentVaildationCheck (content) {
+        if (content.length > 50) {
+            return `${content.substring(0, 50)}...`
+        } else {
+            return content
+        }
+    }
+    
     return (
         <div>
+            <GlobalStyle></GlobalStyle>
             <StDiv >
                 <StUl>
-                    <StLi onClick={() => {navigate(`/Detail/${id}`)}}>
+                    <StLi>
                         <StSection>
                             <StFigure>
-                                <StImg src={avatar}></StImg>
+                                <img src={avatar}></img>
                             </StFigure>
                             <StDiv>
-                                <StSpan>{`닉네임 : ${nickname}`}</StSpan>
-                                <StTime></StTime>
+                                <StSpan>{`${nickname}`}</StSpan>
+                                <StTime>{createdAt}</StTime>
                             </StDiv>
                         </StSection>
-                        <StP>{`내용 : ${content}`}</StP>
+                        <StP onClick={()=>{navigate(`/Detail/${id}`)}}
+                        >{contentVaildationCheck(content)}
+                        </StP>
                     </StLi>
                 </StUl>
             </StDiv>
@@ -29,7 +42,14 @@ function Letter({id, avatar, nickname, content}) {
 // TODO : 중앙정렬 전역스타일링 가져오기
 const StDiv = styled.div`
 background-color: gray;
-width: 100vw;
+margin: 20px;
+
+border-radius: 10px;
+
+&:hover {
+box-shadow: 3px 3px 5px 3px gray;
+transition: 0.5s;
+}
 `
 const StUl = styled.ul`
 display: flex;
@@ -43,30 +63,67 @@ align-items: center;
 justify-content: center;
 flex-direction: column;
 
-border: 2px solid yellow;
-width: 700px;
+position: relative;
 
+width: 700px;
+height: 350px;
 `
 const StSection = styled.section`
-width: 600px;
-height: 300px;
-border: 2px solid black;
+position : absolute;
+top: 10%;
+width: 80%;
+height: 40%;
+
+
 `
 const StFigure = styled.figure`
-`
-const StImg = styled.img`
-border-radius: 50%;
+position : absolute;
+left: 7%;
+top: 15%;
 
 `
 const StSpan = styled.span`
-  
+position: absolute;
+left: 40%;
+top: 40%;
+
+font-size: 20px;
+font-weight: bold;
+letter-spacing: 1.2px;
+
 `
 const StTime = styled.time`
-  
+position: absolute;
+left: 40%;
+top: 70%;
+
+font-size: 20px;
+letter-spacing: 1.2px;
+
 `
 const StP = styled.p`
-border: 2px solid red;
-height: 200px;
+position: absolute;
+width: 80%;
+height: 20%;
+bottom: 10%;
+
+text-align: center;
+border-radius: 10px;
+background-color: #dddddd;
+
+display: flex;
+align-items: center;
+justify-content: center;
+flex-direction: column;
+
+cursor: pointer;
+
+&:hover {
+border: 5px solid #747474;
+transition: 1s;
+}
+
+
 `
 
 export default Letter
