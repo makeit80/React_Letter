@@ -6,7 +6,8 @@ import fakeData from '../components/fakeData.json'
 
 const Router = () => {
     const [inputList, setInputList] = useState(fakeData)
-
+    console.log('router ===> ', inputList)
+    
     return (
         <BrowserRouter>
             <Routes>

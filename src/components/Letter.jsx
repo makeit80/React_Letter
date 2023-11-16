@@ -1,19 +1,20 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import styled from "styled-components"
 import GlobalStyle from '../GlobalStyle';
 
-function Letter({id, avatar, nickname, content, createdAt}) {
+function Letter({ id, avatar, nickname, content, createdAt, inputList, setInputList }) {
     const navigate = useNavigate();
+    const params = useParams();
 
-    function contentVaildationCheck (content) {
+    function contentVaildationCheck(content) {
         if (content.length > 50) {
             return `${content.substring(0, 50)}...`
         } else {
             return content
         }
     }
-    
+
     return (
         <div>
             <GlobalStyle></GlobalStyle>
@@ -29,7 +30,7 @@ function Letter({id, avatar, nickname, content, createdAt}) {
                                 <StTime>{createdAt}</StTime>
                             </StDiv>
                         </StSection>
-                        <StP onClick={()=>{navigate(`/Detail/${id}`)}}
+                        <StP onClick={() => { navigate(`/Detail/${id}`) }}
                         >{contentVaildationCheck(content)}
                         </StP>
                     </StLi>
@@ -39,7 +40,6 @@ function Letter({id, avatar, nickname, content, createdAt}) {
     )
 }
 
-// TODO : 중앙정렬 전역스타일링 가져오기
 const StDiv = styled.div`
 background-color: gray;
 margin: 20px;
@@ -76,6 +76,7 @@ height: 40%;
 
 
 `
+
 const StFigure = styled.figure`
 position : absolute;
 left: 7%;

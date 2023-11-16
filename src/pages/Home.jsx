@@ -15,8 +15,6 @@ function Home({ inputList, setInputList }) {
   //     console.log('바뀌었다!')
   // }, [shownMember])
 
-  // TODO : HOME 에서 삭제 기능 구현 
-
   return (
     <div>
       <Header />
@@ -51,6 +49,9 @@ function Home({ inputList, setInputList }) {
                   content={item.content}
                   avatar={item.avatar}
                   createdAt={item.createdAt}
+
+                  inputList={inputList}
+                  setInputList={setInputList}
                 >
                 </Letter>
               )

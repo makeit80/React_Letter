@@ -10,7 +10,6 @@ function Header() {
     )
 }
 
-// TODO : 중앙 정렬 전역스타일링으로 빼기
 const StHeader = styled.header`
     background-color: #555555;
 

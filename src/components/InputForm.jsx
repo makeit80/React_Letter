@@ -2,12 +2,10 @@ import React, { useState } from 'react'
 import styled from "styled-components"
 
 function Form({ inputList, setInputList, Geako, Choiza }) {
-
+    // Basic
     const [nameInput, setNameInput] = useState('')
     const [contentInput, setContentInput] = useState('')
     const [memberOption, setMemberOption] = useState('');
-
-    // TODO : 로컬스토리지 활용해서 데이터 저장하기
 
     function onChangeHandler(e) {
         const name = e.target.name
@@ -20,41 +18,60 @@ function Form({ inputList, setInputList, Geako, Choiza }) {
             setMemberOption(value)
         }
     }
+    // TODO : 로컬스토리지 활용해서 데이터 저장하기
 
+
+
+    // Form
+    function vaildationCheckHandler() {
+        if (memberOption === "") {
+            alert('멤버를 선택해주세요.')
+            return false;
+        } else if (nameInput === "") {
+            alert('이름을 입력해주세요.')
+            return false;
+        } else if (contentInput === "") {
+            alert('내용을 입력해주세요.')
+            return false;
+        } else {
+            return true;
+        }
+    }
     function onClickSubmitHandler(event) {
         event.preventDefault();
-        // TODO : 첫 선택이 vaildation check가 안됨. 문제 해결
-        if (memberOption === "") {
-            alert('멤버를 선택해주세요!')
-        } else {
+        if (vaildationCheckHandler()) {
             const List = { //prop drilling check
-                createdAt : Date.now(),// TODO : 현재 날짜 데이터 가져오기
+                createdAt: Date.now(),// TODO : 현재 날짜 데이터 가져오기
                 nickname: nameInput,
                 // avatar : ,// TODO : 랜덤 이미지 생성 기능 구현
                 writedTo: memberOption,
                 content: contentInput,
-                id: inputList.length + 1 // TODO: uuid() 로 변경
+                id: String(inputList.length + 1) // TODO: uuid() 로 변경
             }
             setInputList([...inputList, List]);
+            setNameInput('')
+            setContentInput('')
         }
     }
 
+
+
+    // Toggle
     const [toggle, setToggle] = useState(false);
 
-    function onClickToggleHandler () {
-      setToggle(toggle => !toggle)
-      console.log(toggle)
+    function onClickToggleHandler() {
+        setToggle(toggle => !toggle)
+        console.log(toggle)
     }
-
-    function toggleHandler (toggle) {
-      if (toggle === false) {
-          return "hideToggle"
-      } else {
-          return "showToggle"
-      }
-      // Q&A : toggle === false ? "hideToggle" : "showToggle"; 이거 왜 안됨?
-  }
-    function toggleNameHandler (toggle) {
+    function toggleHandler(toggle) {
+        if (toggle === false) {
+            return "hideToggle"
+        } else {
+            return "showToggle"
+        }
+        // Q&A : toggle === false ? "hideToggle" : "showToggle"; 이거 왜 안됨?
+    }
+    function toggleNameHandler(toggle) {
         if (toggle === false) {
             return "펼치기"
         } else {
@@ -63,6 +80,8 @@ function Form({ inputList, setInputList, Geako, Choiza }) {
     }
 
 
+
+    // HTML
     return (
         <>
             <StButton onClick={onClickToggleHandler}>{toggleNameHandler(toggle)}</StButton>
@@ -91,29 +110,32 @@ function Form({ inputList, setInputList, Geako, Choiza }) {
     )
 }
 
+
+
+// Style
 const StForm = styled.form`
-    background-color: gray;
+background-color: gray;
 
-    height: 50vh;
-    width: 700px;
+height: 50vh;
+width: 700px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    margin-bottom: 30px;
+display: flex;
+align-items: center;
+justify-content: center;
+flex-direction: column;
+margin-bottom: 30px;
 
-    border-radius: 10px;
+border-radius: 10px;
 
-    /* TODO : transition 적용할 수 있게 변경 */
-    &.hideToggle {
-    display: none;
-    
-    }
+/* TODO : transition 적용할 수 있게 변경 */
+&.hideToggle {
+display: none;
 
-    &.showToggle {
+}
 
-    }
+&.showToggle {
+
+}
 `
 const StSection = styled.section`
 display: flex;

@@ -14,24 +14,38 @@ function Detail({inputList, setInputList}) {
 
   // Remove
   function onClickRemoveHandler (value) {
-    // TODO : alert 취소 버튼 구현
-    const data = value.filter((list) => list.id !== params.id)
-    setInputList(data)
+    if (window.confirm("삭제하시겠습니까?")) {
+      const data = value.filter((list) => list.id !== params.id)
+      setInputList(data)
+      alert("삭제 완료")
+      navigate("/")
+    } else {
+    	alert("취소되었습니다.");
+    }
+
     // TODO : Session Storage를 활용해 삭제 후 돌아갔을 때 해당 멤버 리스트 유지
     // TODO : 삭제 후 뒤로가기 시 이전 주소를 기억해 오류 나는 문제 해결
-    navigate("/")
   }
 
   // Edit
   const [editState, setEditState] = useState(false);
   const [editValueState, setEditValueState] = useState(data.content)
+  const buttonNameSwitch = editState ? '완료' : '수정'
+
+  function onClickEditHandler () {
+    editState ? setEditState(false) : setEditState(true)
+    if (editState === true) {
+      setEditState(false);
+      const updatedLetters = inputList.map((item) => 
+        item.id === params.id ? {...item, content: editValueState} : item
+      );
+      setInputList(updatedLetters);
+      // Q&A : 기존 배열을 풀어서 넣지 않고 적용해도 됨? 왜..?
+    }
+  }
 
   function onChangeHandler (e) {
     setEditValueState(e.target.value)
-  }
-
-  function onClickEditHandler () {
-    editState === false ? setEditState(true) : setEditState(false)
   }
 
   return (
@@ -47,9 +61,9 @@ function Detail({inputList, setInputList}) {
         </StDiv>
         <StTime>작성일 : {data.createdAt}</StTime>
         <StP>To. {data.writedTo}</StP>
-        {editState === false ? <StP>{editValueState}</StP> : <StTextarea value={editValueState} onChange={onChangeHandler}></StTextarea>}
+        {editState ? <StTextarea value={editValueState} onChange={onChangeHandler}></StTextarea> : <StP>{editValueState}</StP> }
       </StSection>
-      <StButton onClick={() => {onClickEditHandler(inputList)}}>수정</StButton>
+      <StButton onClick={onClickEditHandler}>{buttonNameSwitch}</StButton>
       <StButton onClick={() => {onClickRemoveHandler(inputList)}}>삭제</StButton>
     </div>
   )

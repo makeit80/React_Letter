@@ -3,14 +3,9 @@ import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
     body {
-    /* display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column; */
-
     overflow-x: hidden;
-    
     }
+    
     img {
         border-radius: 50%;
         border: 2px solid #dddddd;
