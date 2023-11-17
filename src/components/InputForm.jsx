@@ -33,6 +33,12 @@ function Form({ inputList, setInputList, Geako, Choiza }) {
         } else if (contentInput === "") {
             alert('내용을 입력해주세요.')
             return false;
+        } else if (nameInput.length >= 20) {
+            alert('최대 20글자까지 작성할 수 있습니다.')
+            return false;
+        } else if (contentInput.length >= 100) {
+            alert('최대 100글자까지 작성할 수 있습니다.')
+            return false;
         } else {
             return true;
         }
