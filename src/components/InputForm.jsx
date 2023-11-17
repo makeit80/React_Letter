@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import styled from "styled-components"
+import { PagesContext } from '../context/PagesContext';
 
-function Form({ inputList, setInputList, Geako, Choiza }) {
+function Form() {
     // Basic
     const [nameInput, setNameInput] = useState('')
     const [contentInput, setContentInput] = useState('')
     const [memberOption, setMemberOption] = useState('');
+    const data = useContext(PagesContext);
 
     function onChangeHandler(e) {
         const name = e.target.name
@@ -19,8 +21,6 @@ function Form({ inputList, setInputList, Geako, Choiza }) {
         }
     }
     // TODO : 로컬스토리지 활용해서 데이터 저장하기
-
-
 
     // Form
     function vaildationCheckHandler() {
@@ -43,6 +43,8 @@ function Form({ inputList, setInputList, Geako, Choiza }) {
             return true;
         }
     }
+
+    
     function onClickSubmitHandler(event) {
         event.preventDefault();
         if (vaildationCheckHandler()) {
@@ -52,9 +54,9 @@ function Form({ inputList, setInputList, Geako, Choiza }) {
                 // avatar : ,// TODO : 랜덤 이미지 생성 기능 구현
                 writedTo: memberOption,
                 content: contentInput,
-                id: String(inputList.length + 1) // TODO: uuid() 로 변경
+                id: String(data.inputList.length + 1) // TODO: uuid() 로 변경
             }
-            setInputList([...inputList, List]);
+            data.setInputList([...data.inputList, List]);
             setNameInput('')
             setContentInput('')
         }
@@ -96,8 +98,8 @@ function Form({ inputList, setInputList, Geako, Choiza }) {
                     <StLabel>멤버 </StLabel>
                     <StSelect name='member' onChange={onChangeHandler} value={memberOption}>
                         <StOption value={""}>멤버 선택</StOption>
-                        <StOption value={Geako}>개코</StOption>
-                        <StOption value={Choiza}>최자</StOption>
+                        <StOption value={'Geako'}>개코</StOption>
+                        <StOption value={'Choiza'}>최자</StOption>
                     </StSelect>
                 </StSection>
                 <StSection>
