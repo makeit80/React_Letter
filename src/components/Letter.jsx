@@ -68,11 +68,11 @@ position : absolute;
 top: 10%;
 width: 80%;
 height: 40%;
-
-
 `
 
 const StFigure = styled.figure`
+width: 130px;
+height: 130px;
 position : absolute;
 left: 7%;
 top: 15%;

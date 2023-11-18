@@ -77,7 +77,11 @@ function Detail() {
 
 
 const StSection = styled.section`
-  
+display: flex;
+align-items: center;
+justify-content: center;
+flex-direction: column;
+text-align: center;
 `
 
 const StButton = styled.button`
@@ -93,15 +97,21 @@ const StLabel = styled.label`
 `
 
 const StFigure = styled.figure`
-  
+width: 200px;
+height: 200px;
 `
 
 const StP = styled.p`
+  width: 500px;
   
 `
 
 const StTextarea = styled.textarea`
-  
+    width: 500px;
+    height: 200px;
+
+    font-size: 20px;
+    letter-spacing: 2.1px;
 `
 
 const StTime = styled.time`

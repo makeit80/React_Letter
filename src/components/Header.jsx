@@ -1,11 +1,10 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import styled from "styled-components"
-import { PagesContext } from '../context/PagesContext'
 
 function Header() {
 
     return (
-        <StHeader>
+        <StHeader style={{background: `url(/img/concert.jpg)`}}>
             <StTitle>다이나믹 듀오 팬레터</StTitle>
         </StHeader>
     )
@@ -13,6 +12,7 @@ function Header() {
 
 const StHeader = styled.header`
     background-color: #555555;
+    background-size: cover;
 
     height: 100vh;
     width: 100vw;

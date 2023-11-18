@@ -30,8 +30,12 @@ function Home() {
       <StBody>
         {/* Button */}
         <StUl>
-          <StLi className='Geako' onClick={() => { dispatch({ type: GeakoBtn }) }}>개코</StLi>
-          <StLi className='Choiza' onClick={() => { dispatch({ type: ChoizaBtn }) }}>최자</StLi>
+          <StImg className='Geako' 
+          src={process.env.PUBLIC_URL + '/img/geako_img.jpg'} 
+          onClick={() => { dispatch({ type: GeakoBtn }) }}></StImg>
+          <StImg className='Choiza' 
+          src={process.env.PUBLIC_URL + '/img/choiza_img.png'} 
+          onClick={() => { dispatch({ type: ChoizaBtn }) }}></StImg>
         </StUl>
 
         {/* Input */}
@@ -57,10 +61,10 @@ function Home() {
             })
         }
       </StBody>
-
     </div>
   )
 }
+
 
 const StBody = styled.body`
 display: flex;
@@ -71,43 +75,37 @@ flex-direction: column;
 
 const StUl = styled.ul`
 width: 100vw;   
-height: 300px; 
+height: 400px; 
 position: relative;
 text-align: center;
 `
-const StLi = styled.li`
+const StImg = styled.img`
 display: flex;
 align-items: center;
 justify-content: center;
 flex-direction: column;
 
-background-color: gray;
-width: 7vw;
-height: 4vh;
+object-fit: cover;
+width: 250px;
+height: 250px;
 
-bottom:50%;
+bottom:21%;
 
 cursor: pointer;
 
-&:hover {
-background-color: #565656;
-color: white;
-transition: 0.5s;
-}
-
 position: absolute;
-
 &.Geako {
-  left:30%;
+  left:26%;
 }
-
 &.Choiza {
-  right: 30%;
+  right: 26%;
 }
 
-&.toggle {
-  right: 50%
+&:hover {
+  border: 3px solid gray;
+  transition: 0.5s;
 }
-/* TODO : Geako, Choiza 사진 넣기 */
 `
+
+
 export default Home

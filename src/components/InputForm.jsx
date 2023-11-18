@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import styled from "styled-components"
+import {v4 as uuidv4} from "uuid"
 
 import { useDispatch, useSelector } from "react-redux"
 import { GeakoOption, ChoizaOption } from '../redux/modules/option';
@@ -69,10 +70,10 @@ function Form() {
             const List = { 
                 createdAt: Date.now(),// TODO : 현재 날짜 데이터 가져오기
                 nickname: nickname.value,
-                // avatar : ,// TODO : 랜덤 이미지 생성 기능 구현
+                avatar : process.env.PUBLIC_URL + '/img/star.png',
                 writedTo: members.option,
                 content: content.value,
-                id: String(dataList.value.length + 1) // TODO: uuid() 로 변경
+                id: uuidv4(),
             }
             dispatch(insertData(List))
             dispatch(nameReset())
@@ -99,9 +100,9 @@ function Form() {
     }
     function toggleNameHandler(toggle) {
         if (toggle === false) {
-            return "펼치기"
+            return "Letter"
         } else {
-            return "접기"
+            return "Hide"
         }
     }
 
@@ -203,6 +204,7 @@ const StDiv = styled.div`
     
 `
 const StButton = styled.button`
+background-color: #e4e4e4;
 width: 700px;
 height: 100px;
 margin: 20px;
@@ -218,6 +220,7 @@ color: #555555;
 cursor: pointer;
 
 &:hover {
+background-color: #dcdcdc;
 box-shadow: 3px 3px 5px 3px #dddddd;
 transition: 0.5s;
 }

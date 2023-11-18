@@ -2,7 +2,6 @@ import fakedata from '../../components/fakeData.json'
 
 const INPUT_DATA = 'dataStorage/INPUT_DATA'
 const EDIT_DATA = 'dataStorage/EDIT_DATA'
-const REMOVE_DATA = 'dataStorage/REMOVE_DATA'
 
 const initialState = {
     value: fakedata,
