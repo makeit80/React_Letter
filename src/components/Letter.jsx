@@ -1,12 +1,9 @@
-import React, { useContext } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import styled from "styled-components"
-import GlobalStyle from '../GlobalStyle';
-import { HomeContext } from '../context/HomeContext'
 
-function Letter() {
+function Letter({ id, nickname, content, avatar, createdAt }) {
     const navigate = useNavigate();
-    const data = useContext(HomeContext);
 
     function contentVaildationCheck(content) {
         if (content.length > 50) {
@@ -17,31 +14,24 @@ function Letter() {
     }
 
     return (
-        <div>
-            {/* {
-                data.inputList
-
-            } */}
-            <GlobalStyle></GlobalStyle>
-            <StDiv >
-                <StUl>
-                    <StLi>
-                        <StSection>
-                            <StFigure>
-                                <img src={data.avatar}></img>
-                            </StFigure>
-                            <StDiv>
-                                <StSpan>{`${data.nickname}`}</StSpan>
-                                <StTime>{data.createdAt}</StTime>
-                            </StDiv>
-                        </StSection>
-                        <StP onClick={() => { navigate(`/Detail/${data.id}`) }}
-                        >{contentVaildationCheck(data.content)}
-                        </StP>
-                    </StLi>
-                </StUl>
-            </StDiv>
-        </div>
+        <StDiv>
+            <StUl>
+                <StLi>
+                    <StSection>
+                        <StFigure>
+                            <img src={avatar}></img>
+                        </StFigure>
+                        <StDiv>
+                            <StSpan>{`${nickname}`}</StSpan>
+                            <StTime>{createdAt}</StTime>
+                        </StDiv>
+                    </StSection>
+                    <StP onClick={() => { navigate(`/Detail/${id}`) }}
+                    >{contentVaildationCheck(content)}
+                    </StP>
+                </StLi>
+            </StUl>
+        </StDiv>
     )
 }
 

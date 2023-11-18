@@ -1,42 +1,60 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import styled from "styled-components"
-import { PagesContext } from '../context/PagesContext';
+
+import { useDispatch, useSelector } from "react-redux"
+import { GeakoOption, ChoizaOption } from '../redux/modules/option';
+import { nameValue, nameReset } from '../redux/modules/nameInput';
+import { contentValue, contentReset } from '../redux/modules/contentInput';
+import { insertData } from '../redux/modules/dataStorage';
+
 
 function Form() {
     // Basic
-    const [nameInput, setNameInput] = useState('')
-    const [contentInput, setContentInput] = useState('')
-    const [memberOption, setMemberOption] = useState('');
-    const data = useContext(PagesContext);
+    const members = useSelector((state) => {
+        return state.option;
+      })
+    const nickname = useSelector((state) => {
+        return state.nameInput
+    })
+    const content = useSelector((state) => {
+        return state.contentInput
+    })
+    const dataList = useSelector((state) => {
+        return state.dataProcess
+    })
+    const dispatch = useDispatch();
+
+    // Q&A : option Reducer를 건드렸는데 
+    // 왜 Home Components의 members Reducer와 연결된 Button이 동작하면 여기 콘솔이 찍히는거지?
 
     function onChangeHandler(e) {
         const name = e.target.name
         const value = e.target.value
         if (name === 'nickname') {
-            setNameInput(value)
+            dispatch(nameValue(value))
         } else if (name === 'content') {
-            setContentInput(value)
+            dispatch(contentValue(value))
         } else if (name === 'member') {
-            setMemberOption(value)
+            dispatch({ type: value})
         }
     }
     // TODO : 로컬스토리지 활용해서 데이터 저장하기
 
     // Form
     function vaildationCheckHandler() {
-        if (memberOption === "") {
+        if (members.option === "") {
             alert('멤버를 선택해주세요.')
             return false;
-        } else if (nameInput === "") {
+        } else if (nickname.value === "") {
             alert('이름을 입력해주세요.')
             return false;
-        } else if (contentInput === "") {
+        } else if (content.value === "") {
             alert('내용을 입력해주세요.')
             return false;
-        } else if (nameInput.length >= 20) {
+        } else if (nickname.value.length >= 20) {
             alert('최대 20글자까지 작성할 수 있습니다.')
             return false;
-        } else if (contentInput.length >= 100) {
+        } else if (content.value.length >= 100) {
             alert('최대 100글자까지 작성할 수 있습니다.')
             return false;
         } else {
@@ -44,21 +62,21 @@ function Form() {
         }
     }
 
-    
-    function onClickSubmitHandler(event) {
-        event.preventDefault();
+
+    function onClickSubmitHandler(e) {
+        e.preventDefault();
         if (vaildationCheckHandler()) {
-            const List = { //prop drilling check
+            const List = { 
                 createdAt: Date.now(),// TODO : 현재 날짜 데이터 가져오기
-                nickname: nameInput,
+                nickname: nickname.value,
                 // avatar : ,// TODO : 랜덤 이미지 생성 기능 구현
-                writedTo: memberOption,
-                content: contentInput,
-                id: String(data.inputList.length + 1) // TODO: uuid() 로 변경
+                writedTo: members.option,
+                content: content.value,
+                id: String(dataList.value.length + 1) // TODO: uuid() 로 변경
             }
-            data.setInputList([...data.inputList, List]);
-            setNameInput('')
-            setContentInput('')
+            dispatch(insertData(List))
+            dispatch(nameReset())
+            dispatch(contentReset())
         }
     }
 
@@ -96,19 +114,19 @@ function Form() {
             <StForm className={toggleHandler(toggle)}>
                 <StSection>
                     <StLabel>멤버 </StLabel>
-                    <StSelect name='member' onChange={onChangeHandler} value={memberOption}>
+                    <StSelect name='member' onChange={onChangeHandler} value={members.option}>
                         <StOption value={""}>멤버 선택</StOption>
-                        <StOption value={'Geako'}>개코</StOption>
-                        <StOption value={'Choiza'}>최자</StOption>
+                        <StOption value={GeakoOption}>개코</StOption>
+                        <StOption value={ChoizaOption}>최자</StOption>
                     </StSelect>
                 </StSection>
                 <StSection>
                     <StLabel>닉네임</StLabel>
-                    <StInput name='nickname' value={nameInput} onChange={onChangeHandler}></StInput>
+                    <StInput name='nickname' value={nickname.value} onChange={onChangeHandler}></StInput>
                 </StSection>
                 <StSection>
                     <StLabel>내용</StLabel>
-                    <StInput name='content' value={contentInput} onChange={onChangeHandler}></StInput>
+                    <StInput name='content' value={content.value} onChange={onChangeHandler}></StInput>
                 </StSection>
                 <StDiv>
                     <button onClick={onClickSubmitHandler}>등록</button>

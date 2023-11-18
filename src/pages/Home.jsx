@@ -1,19 +1,24 @@
-import React, { useContext, useState } from 'react'
 import styled from "styled-components"
 import InputForm from '../components/InputForm'
 import Letter from '../components/Letter'
 import Header from '../components/Header'
-import { PagesContext } from '../context/PagesContext'
-import { HomeContext } from '../context/HomeContext'
+
+import { useDispatch, useSelector } from "react-redux"
+import { GeakoBtn, ChoizaBtn } from '../redux/modules/members'
+
 
 
 function Home() {
-  const Geako = 'Geako'
-  const Choiza = 'Choiza'
-  const [member, setMember] = useState(Geako)
-  const data = useContext(PagesContext);
+  const members = useSelector((state) => {
+    return state.members;
+  })
+  const dataList = useSelector((state) => {
+    return state.dataProcess
+  })
+  const dispatch = useDispatch();
 
   // Q&A : useEffect를 활용해 변수의 값이 바뀔 때마다 state를 변경할 수는 없을까?
+  // 꼭 useState를 써야하는걸까?
   // let shownMember = 'Geako'
   // useEffect(() => {
   //     console.log('바뀌었다!')
@@ -25,8 +30,8 @@ function Home() {
       <StBody>
         {/* Button */}
         <StUl>
-          <StLi className='Geako' onClick={() => { setMember(Geako) }}>개코</StLi>
-          <StLi className='Choiza' onClick={() => { setMember(Choiza) }}>최자</StLi>
+          <StLi className='Geako' onClick={() => { dispatch({ type: GeakoBtn }) }}>개코</StLi>
+          <StLi className='Choiza' onClick={() => { dispatch({ type: ChoizaBtn }) }}>최자</StLi>
         </StUl>
 
         {/* Input */}
@@ -34,21 +39,20 @@ function Home() {
 
         {/* Letter */}
         {
-          data.inputList
+          dataList.value
             .filter(function (value) {
-              return value.writedTo === member;
+              return value.writedTo === members.member;
             })
             .map((item) => {
               return (
-                <HomeContext.Provider value={{
-                id : item.id, 
-                nickname: item.nickname,
-                content: item.content,
-                avatar: item.avatar,
-                createdAt: item.createdAt
-                }}>
-                  <Letter></Letter>
-                </HomeContext.Provider>
+                  <Letter
+                  id={item.id}
+                  nickname={item.nickname}
+                  content={item.content}
+                  avatar={item.avatar}
+                  createdAt={item.createdAt}
+                  >
+                  </Letter>
               )
             })
         }
@@ -59,51 +63,51 @@ function Home() {
 }
 
 const StBody = styled.body`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+display: flex;
+align-items: center;
+justify-content: center;
+flex-direction: column;
 `
 
 const StUl = styled.ul`
-    width: 100vw;   
-    height: 300px; 
-    position: relative;
-    text-align: center;
-    `
+width: 100vw;   
+height: 300px; 
+position: relative;
+text-align: center;
+`
 const StLi = styled.li`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+display: flex;
+align-items: center;
+justify-content: center;
+flex-direction: column;
 
-    background-color: gray;
-    width: 7vw;
-    height: 4vh;
+background-color: gray;
+width: 7vw;
+height: 4vh;
 
-    bottom:50%;
+bottom:50%;
 
-    cursor: pointer;
+cursor: pointer;
 
-    &:hover {
-    background-color: #565656;
-    color: white;
-    transition: 0.5s;
-    }
+&:hover {
+background-color: #565656;
+color: white;
+transition: 0.5s;
+}
 
-    position: absolute;
-    
-    &.Geako {
-      left:30%;
-    }
+position: absolute;
 
-    &.Choiza {
-      right: 30%;
-    }
+&.Geako {
+  left:30%;
+}
 
-    &.toggle {
-      right: 50%
-    }
-    /* TODO : Geako, Choiza 사진 넣기 */
-    `
+&.Choiza {
+  right: 30%;
+}
+
+&.toggle {
+  right: 50%
+}
+/* TODO : Geako, Choiza 사진 넣기 */
+`
 export default Home
