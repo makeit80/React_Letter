@@ -37,7 +37,7 @@ function Detail() {
   // Edit
   const [editState, setEditState] = useState(false);
   const [editValueState, setEditValueState] = useState(targetData.content)
-  const buttonNameSwitch = editState ? '완료' : '수정'
+  const buttonNameSwitch = editState ? 'Complete' : 'Edit'
 
   function onClickEditHandler() {
     setEditState(editState => !editState)
@@ -56,67 +56,149 @@ function Detail() {
 
 
   return (
-    <div>
-      <Link to={'/'}>Home</Link>
+    <StDiv>
+      <StLink to={'/'}>Home</StLink>
       <StSection>
-        <StDiv>
+        <Sdiv>
           <StFigure>
             <img src={targetData.avatar}></img>
           </StFigure>
           <StLabel>닉네임 : {targetData.nickname}</StLabel>
-        </StDiv>
-        <StTime>작성일 : {targetData.createdAt}</StTime>
-        <StP>To. {targetData.writedTo}</StP>
-        {editState ? <StTextarea value={editValueState} onChange={onChangeHandler}></StTextarea> : <StP>{editValueState}</StP>}
+          <StTime>작성일 : {targetData.createdAt}</StTime>
+        </Sdiv>
+        <StP height={'35px'}>To. {targetData.writedTo}</StP>
+        {editState ? <StTextarea value={editValueState} onChange={onChangeHandler}></StTextarea> : <StP height={'200px'}>{editValueState}</StP>}
       </StSection>
-      <StButton onClick={onClickEditHandler}>{buttonNameSwitch}</StButton>
-      <StButton onClick={() => { onClickRemoveHandler(dataList.value) }}>삭제</StButton>
-    </div>
+      <StButton left={'52.7%'} top={'17.5%'} onClick={onClickEditHandler}>{buttonNameSwitch}</StButton>
+      <StButton left={'61%'} top={'17.5%'} onClick={() => { onClickRemoveHandler(dataList.value) }}>Delete</StButton>
+    </StDiv>
   )
 }
 
 
-const StSection = styled.section`
+const StDiv = styled.div`
+width: 100vw;
+height: 100vh;
+
 display: flex;
 align-items: center;
 justify-content: center;
 flex-direction: column;
 text-align: center;
 `
+const StSection = styled.section`
+height: 600px;
+width: 700px;
+background-color: gray;
 
-const StButton = styled.button`
-  
+border: 10px solid gray;
+border-radius: 10px;
 `
+const Sdiv = styled.div`
+position: relative;
+height: 300px;
+background-color: #dddddd;
 
-const StDiv = styled.div`
-  
+font-weight: bold;
+font-size: 18px;
+color: #464646;
+border-radius: 10px;
+
 `
-
 const StLabel = styled.label`
-  
+position: absolute;
+left: 46%;
+top: 40%;
 `
-
+const StTime = styled.time`
+position: absolute;
+left: 46%;
+bottom: 39%;
+`
 const StFigure = styled.figure`
-width: 200px;
-height: 200px;
-`
+position: absolute;
+left: 15%;
+bottom: 25%;
 
+width: 150px;
+height: 150px;
+`
+const StButton = styled.button`
+position: absolute;
+left: ${(props) => props.left};
+top: ${(props) => props.top};
+
+width: 100px;
+height: 25px;
+border-radius: 10px;
+border: none;
+background-color: #cecece;
+
+display: flex;
+align-items: center;
+justify-content: center;
+flex-direction: column;
+
+text-decoration: none;
+color: #555555;
+font-size: 15px;
+font-weight: bold;
+
+&:hover {
+background-color: gray;
+color: white;
+transition: 0.5s;
+}
+`
 const StP = styled.p`
-  width: 500px;
-  
+height: ${(props) => props.height};
+margin-top: 25px;
+background-color: #dddddd;
+border-radius: 10px;
+
+padding: 1px;
 `
 
 const StTextarea = styled.textarea`
-    width: 500px;
-    height: 200px;
+width: 680px;
+height: 180px;
 
-    font-size: 20px;
-    letter-spacing: 2.1px;
+margin-top: 25px;
+background-color: #eaeaea;
+border-radius: 10px;
+
+font-size: 20px;
+letter-spacing: 1.8px;
+padding: 10px;
+
+`
+const StLink = styled(Link)`
+position: absolute;
+right: 23.3%;
+top: 17.5%;
+
+width: 100px;
+height: 25px;
+border-radius: 10px;
+background-color: #cecece;
+
+display: flex;
+align-items: center;
+justify-content: center;
+flex-direction: column;
+
+text-decoration: none;
+color: #555555;
+font-size: 15px;
+font-weight: bold;
+
+&:hover {
+background-color: gray;
+color: white;
+transition: 0.5s;
+}
 `
 
-const StTime = styled.time`
-  
-`
 
 
 export default Detail

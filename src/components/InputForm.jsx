@@ -20,11 +20,14 @@ function Form() {
     const content = useSelector((state) => {
         return state.contentInput
     })
-    const dataList = useSelector((state) => {
-        return state.dataProcess
-    })
     const dispatch = useDispatch();
 
+    function currentDate () {
+        const data = new Date();
+        const dateFormat = 
+        `${data.getFullYear()}년 ${data.getMonth()+1}월 ${data.getDate()}일 / ${data.getHours()}시 ${data.getMinutes()}분`
+        return dateFormat;
+    }
     // Q&A : option Reducer를 건드렸는데 
     // 왜 Home Components의 members Reducer와 연결된 Button이 동작하면 여기 콘솔이 찍히는거지?
 
@@ -68,7 +71,7 @@ function Form() {
         e.preventDefault();
         if (vaildationCheckHandler()) {
             const List = { 
-                createdAt: Date.now(),// TODO : 현재 날짜 데이터 가져오기
+                createdAt: currentDate(),
                 nickname: nickname.value,
                 avatar : process.env.PUBLIC_URL + '/img/star.png',
                 writedTo: members.option,
@@ -88,7 +91,6 @@ function Form() {
 
     function onClickToggleHandler() {
         setToggle(toggle => !toggle)
-        console.log(toggle)
     }
     function toggleHandler(toggle) {
         if (toggle === false) {
@@ -154,14 +156,11 @@ margin-bottom: 30px;
 
 border-radius: 10px;
 
-/* TODO : transition 적용할 수 있게 변경 */
 &.hideToggle {
 display: none;
-
 }
 
 &.showToggle {
-
 }
 `
 const StSection = styled.section`

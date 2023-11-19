@@ -21,6 +21,8 @@ const GlobalStyle = createGlobalStyle`
         line-height: 30px;
         letter-spacing: 1.2px;
     }
+
+
 `
 
 
