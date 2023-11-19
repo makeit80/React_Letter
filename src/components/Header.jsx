@@ -4,7 +4,7 @@ import styled from "styled-components"
 function Header() {
 
     return (
-        <StHeader style={{background: `url(/img/concert.jpg)`}}>
+        <StHeader style={{backgroundImage: `url(/img/concert.jpg)`}}>
             <StTitle>다이나믹 듀오 팬레터</StTitle>
         </StHeader>
     )
@@ -13,6 +13,7 @@ function Header() {
 const StHeader = styled.header`
     background-color: #555555;
     background-size: cover;
+    background-repeat: no-repeat;
 
     height: 100vh;
     width: 100vw;

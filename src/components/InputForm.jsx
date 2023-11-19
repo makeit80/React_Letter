@@ -73,7 +73,7 @@ function Form() {
             const List = { 
                 createdAt: currentDate(),
                 nickname: nickname.value,
-                avatar : process.env.PUBLIC_URL + '/img/star.png',
+                avatar : process.env.PUBLIC_URL + '/img/human.png',
                 writedTo: members.option,
                 content: content.value,
                 id: uuidv4(),
@@ -108,12 +108,13 @@ function Form() {
         }
     }
 
-
-
-    // HTML
+    
     return (
         <>
-            <StButton onClick={onClickToggleHandler}>{toggleNameHandler(toggle)}</StButton>
+            <StButton 
+            height={'100px'} width={'700px'} fontSize={'20px'} shadow={'3px 3px 5px 3px #dddddd'} 
+            onClick={onClickToggleHandler}>{toggleNameHandler(toggle)}
+            </StButton>
             <StForm className={toggleHandler(toggle)}>
                 <StSection>
                     <StLabel>멤버 </StLabel>
@@ -132,7 +133,10 @@ function Form() {
                     <StInput name='content' value={content.value} onChange={onChangeHandler}></StInput>
                 </StSection>
                 <StDiv>
-                    <button onClick={onClickSubmitHandler}>등록</button>
+                    <StButton 
+                    height={'30px'} width={'100px'} fontSize={'13px'} 
+                    onClick={onClickSubmitHandler}>Submit
+                    </StButton>
                 </StDiv>
             </StForm>
         </>
@@ -185,9 +189,6 @@ border-radius: 3px;
 text-align: center;
 
 -webkit-appearance: none;
-
-/* TODO : option border 설정 */
-/* TODO : transition 설정 */
 `
 
 const StOption = styled.option`
@@ -196,22 +197,20 @@ const StOption = styled.option`
 const StInput = styled.input`
 width: 180px;
 height: 20px;
-/* TODO : border 제거 */
-/* TODO : Input CSS 자료 수집 */
 `
 const StDiv = styled.div`
     
 `
 const StButton = styled.button`
 background-color: #e4e4e4;
-width: 700px;
-height: 100px;
+width: ${(props) => props.width};
+height: ${(props) => props.height};
 margin: 20px;
 
 border: none;
 border-radius: 10px;
 
-font-size: 20px;
+font-size: ${(props) => props.fontSize};
 font-weight: bold;
 letter-spacing: 1.2px;
 color: #555555;
@@ -220,7 +219,7 @@ cursor: pointer;
 
 &:hover {
 background-color: #dcdcdc;
-box-shadow: 3px 3px 5px 3px #dddddd;
+box-shadow: ${(props) => props.shadow}; 
 transition: 0.5s;
 }
 `

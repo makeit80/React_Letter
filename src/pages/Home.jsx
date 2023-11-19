@@ -74,7 +74,7 @@ flex-direction: column;
 `
 
 const StUl = styled.ul`
-width: 100vw;   
+width: 700px;   
 height: 400px; 
 position: relative;
 text-align: center;
@@ -95,10 +95,11 @@ cursor: pointer;
 
 position: absolute;
 &.Geako {
-  left:26%;
+  left:3%;
 }
 &.Choiza {
-  right: 26%;
+  right: 3%;
+  
 }
 
 &:hover {
