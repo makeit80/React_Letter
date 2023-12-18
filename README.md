@@ -15,4 +15,3 @@ Dynamic Duo Fan Letter
 # Features
 ---
 * message CRUD
-
